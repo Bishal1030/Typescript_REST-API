@@ -7,7 +7,7 @@ import adminMiddleware from "../middlewares/admin";
 const productRoutes : Router = Router();
 
 
-productRoutes.post('/',[authMiddleware,adminMiddleware ], errorHandler(createProduct))
+productRoutes.post('/',authMiddleware , errorHandler(createProduct))
 productRoutes.get('/',[authMiddleware,adminMiddleware ], errorHandler(listProduct))
 
 export default productRoutes;
