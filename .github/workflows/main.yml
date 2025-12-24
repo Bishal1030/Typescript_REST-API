@@ -1,0 +1,41 @@
+name: AWS CI/CD
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ACTION_TOKEN }}
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
+
+      - name: run typescript build
+        run: npm run build
+
+      - name: Generate and apply Prisma migration
+        run: npx prisma migrate dev --name init
+
+      - name: Start or Restart app with PM2
+        run: |
+          pm2 start dist/index.js --name app || pm2 restart app
+
+      - name: Save PM2 process list
+        run: pm2 save

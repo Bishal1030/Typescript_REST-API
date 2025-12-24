@@ -1,3 +1,32 @@
-node_modules
-# Keep environment variables out of version control
+# Dependencies
+node_modules/
+
+# Environment variables
 .env
+.env.*
+
+# Build output
+dist/
+
+# Prisma (generated & OS-specific)
+prisma/migrations/
+src/generated/prisma/
+.prisma/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pm2.log
+
+# OS / Editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Temp / cache
+.cache/
+.tmp/
+coverage/
