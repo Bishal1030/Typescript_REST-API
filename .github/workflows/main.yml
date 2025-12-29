@@ -31,7 +31,7 @@ jobs:
         run: npm run build
 
       - name: Generate and apply Prisma migration
-        run: npx prisma migrate dev --name init
+        run: npx prisma migrate deploy
 
       - name: Start or Restart app with PM2
         run: |
